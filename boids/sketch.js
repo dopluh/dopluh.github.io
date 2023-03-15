@@ -4,7 +4,7 @@ function setup() {
     alignSlider = createSlider(0, 5, 1, 0.1);
     cohereSlider = createSlider(0, 5, 1, 0.1);
     separateSlider = createSlider(0, 5, 1, 0.1);
-    perceptionSlider = createSlider(0, 100, 1, 0.1);
+    perceptionSlider = createSlider(0, 100, 50, 0.1);
     createCanvas(500, 400);
     stroke(255);
     strokeWeight(10);
