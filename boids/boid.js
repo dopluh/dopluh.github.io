@@ -6,7 +6,7 @@ class Boid{
         this.acceleration = createVector()
         this.maxForce = .1
         this.maxVelocity = 3
-        //this.perception = 50;
+        this.perception = 50;
     }
 
     edges(){
