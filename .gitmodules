@@ -1,0 +1,4 @@
+[submodule "games/first_game"]
+	path = games/first_game
+	url = https://github.com/dopluh/first_game
+	branch = main
