@@ -1,21 +1,151 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>this is a website</title>
-
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-    <script src="boids/libraries/p5.min.js"></script>
-    <script src="boids/libraries/p5.sound.min.js"></script>
-    <script src="boids/boid.js"></script>
-  </head>
-
-  <body>
-    <script src="boids/sketch.js"></script>
-    <a href="games/first_game/exports/web/first_game.html">Play First Game</a>
-  </body>
+    <title>Happy 27th Birthday!</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .slideshow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+        .slideshow img {
+            width: 50%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            display: none;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            opacity: 0.7;
+        }
+        .birthday-text {
+            position: absolute;
+            font-size: 2rem;
+            font-weight: bold;
+            color: yellow;
+            text-shadow: 2px 2px 5px rgba(255, 255, 0, 0.8);
+            opacity: 0;
+            animation: fadeOut 2s ease-out;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        #playButton {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            background-color: yellow;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Happy 27th Birthday!</h1>
+        <div class="slideshow">
+            <img src="images/image1.jpg" alt="Birthday Girl">
+            <img src="images/image2.jpg" alt="Birthday Girl">
+            <img src="images/image3.jpg" alt="Birthday Girl">
+        </div>
+        <button id="playButton">Immersive Audio</button>
+        <div id="player"></div>
+    </div>
+    
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".slideshow img");
+        
+        function showSlides() {
+            slides.forEach(slide => slide.style.display = "none");
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+        
+        showSlides();
+        
+        function createExplosion(x, y) {
+            for (let i = 0; i < 30; i++) {
+                let particle = document.createElement("div");
+                particle.classList.add("confetti");
+                document.body.appendChild(particle);
+                particle.style.left = `${x + (Math.random() * 100 - 50)}px`;
+                particle.style.top = `${y + (Math.random() * 100 - 50)}px`;
+                particle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                particle.style.animation = `explode ${Math.random() * 1.5 + 0.5}s ease-out`;
+                setTimeout(() => particle.remove(), 1500);
+            }
+            createBirthdayText(x, y);
+        }
+        
+        function createBirthdayText(x, y) {
+            let text = document.createElement("div");
+            text.classList.add("birthday-text");
+            text.innerText = "Happy Birthday!";
+            document.body.appendChild(text);
+            text.style.left = `${x}px`;
+            text.style.top = `${y}px`;
+            setTimeout(() => text.remove(), 2000);
+        }
+        
+        function startFireworks() {
+            setInterval(() => {
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight * 0.7;
+                createExplosion(x, y);
+            }, 1000);
+        }
+        
+        startFireworks();
+        
+        // Load YouTube API and play video on button click
+        let player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'XIaib1VUkx8',
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'XIaib1VUkx8' },
+                events: {
+                    'onReady': function(event) {
+                        document.getElementById('playButton').addEventListener('click', () => {
+                            event.target.playVideo();
+                        });
+                    }
+                }
+            });
+        }
+        
+        let tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    </script>
+</body>
 </html>
