@@ -2,3 +2,7 @@
 	path = games/first_game
 	url = https://github.com/dopluh/first_game
 	branch = main
+[submodule "games/meadow-mingle"]
+	path = games/meadow-mingle
+	url = https://github.com/dopluh/meadow-mingle
+	branch = main
