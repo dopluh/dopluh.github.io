@@ -36,7 +36,7 @@ class Boid{
             }
         }
         if (total > 0){
-            // desired here is pointing toward the average position of all the boids
+            // desired here is pointing toward the average velocity of all the boids
             steering.div(total)
             // steering = desired - current
             steering.sub(this.velocity)
